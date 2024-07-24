@@ -1,4 +1,3 @@
-// src/Components/Contact.js
 import React, { useState } from 'react';
 
 const Contact = ({ data }) => {
@@ -15,7 +14,7 @@ const Contact = ({ data }) => {
     setIsLoading(true);
 
     try {
-      const response = await fetch('/api/send-email', {
+      const response = await fetch('/api/send-email.php', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
