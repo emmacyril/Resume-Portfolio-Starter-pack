@@ -33,7 +33,7 @@ header {
    height: 800px;
    min-height: 500px;
    width: 100%;
-   background: #161415 url(../images/header-background.jpg) no-repeat top center;
+   background: #161415 url(../images/6.jpg) no-repeat top center;
    background-size: cover !important;
 	-webkit-background-size: cover !important;
    text-align: center;
@@ -236,7 +236,7 @@ ul#nav li.current a { color: #F06000; }
 /* ------------------------------------------------------------------ */
 
 #resume {
-   background: #fff;
+   background: #ebeeee;
    padding-top: 90px;
    padding-bottom: 72px;
    overflow: hidden;
@@ -417,7 +417,7 @@ ul#nav li.current a { color: #F06000; }
 /* ------------------------------------------------------------------ */
 
 #portfolio {
-   background: #ebeeee;
+   background: #ffffff;
    padding-top: 90px;
    padding-bottom: 60px;
 }
@@ -1009,3 +1009,19 @@ footer .social-links li:first-child { margin-left: 0; }
  	border-radius: 100%;
 }
 #go-top a:hover { background-color: #0F9095; }
+
+#message-success {
+   color: green;
+   background-color: #e8f5e9;
+   padding: 10px;
+   margin-top: 20px;
+   border: 1px solid green;
+ }
+ 
+ #message-warning {
+   color: red;
+   background-color: #ffebee;
+   padding: 10px;
+   margin-top: 20px;
+   border: 1px solid red;
+ }

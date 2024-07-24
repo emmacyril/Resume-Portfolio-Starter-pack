@@ -5,6 +5,8 @@ const Contact = ({ data }) => {
   const [email, setEmail] = useState("");
   const [subject, setSubject] = useState("");
   const [message, setMessage] = useState("");
+  const [submitStatus, setSubmitStatus] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   if (data) {
     var contactName = data.name;
@@ -17,14 +19,37 @@ const Contact = ({ data }) => {
     var contactMessage = data.contactmessage;
   }
 
-  const submitForm = () => {
-    window.open(
-      `mailto:${contactEmail}?subject=${encodeURIComponent(
-        subject
-      )}&body=${encodeURIComponent(name)} (${encodeURIComponent(
-        email
-      )}): ${encodeURIComponent(message)}`
-    );
+  const submitForm = async (e) => {
+    e.preventDefault();
+    setSubmitStatus(null);
+    setIsLoading(true);
+
+    try {
+      const response = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ name, email, subject, message }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setSubmitStatus({ type: 'success', message: data.message });
+        setName("");
+        setEmail("");
+        setSubject("");
+        setMessage("");
+      } else {
+        setSubmitStatus({ type: 'error', message: data.message || 'Failed to send email' });
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      setSubmitStatus({ type: 'error', message: 'There was an error sending your message. Please try again.' });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -51,12 +76,12 @@ const Contact = ({ data }) => {
                 </label>
                 <input
                   type="text"
-                  defaultValue=""
                   value={name}
                   size="35"
                   id="contactName"
                   name="contactName"
                   onChange={(e) => setName(e.target.value)}
+                  required
                 />
               </div>
 
@@ -65,13 +90,13 @@ const Contact = ({ data }) => {
                   Email <span className="required">*</span>
                 </label>
                 <input
-                  type="text"
-                  defaultValue=""
+                  type="email"
                   value={email}
                   size="35"
                   id="contactEmail"
                   name="contactEmail"
                   onChange={(e) => setEmail(e.target.value)}
+                  required
                 />
               </div>
 
@@ -79,7 +104,6 @@ const Contact = ({ data }) => {
                 <label htmlFor="contactSubject">Subject</label>
                 <input
                   type="text"
-                  defaultValue=""
                   value={subject}
                   size="35"
                   id="contactSubject"
@@ -99,22 +123,44 @@ const Contact = ({ data }) => {
                   onChange={(e) => setMessage(e.target.value)}
                   id="contactMessage"
                   name="contactMessage"
+                  required
                 ></textarea>
               </div>
 
               <div>
-                <button onClick={submitForm} type="submit" className="submit">
-                  Submit
+                <button type="submit" className="submit" disabled={isLoading}>
+                  {isLoading ? 'Sending...' : 'Submit'}
                 </button>
               </div>
             </fieldset>
           </form>
 
-          <div id="message-warning"> Error boy</div>
-          <div id="message-success">
-            <i className="fa fa-check"></i>Your message was sent, thank you!
-            <br />
-          </div>
+          {isLoading && (
+            <div className="loading-indicator" style={{
+              textAlign: 'center',
+              marginTop: '20px',
+              fontSize: '18px',
+              color: '#fff'
+            }}>
+              Sending your message...
+            </div>
+          )}
+
+          {submitStatus && !isLoading && (
+            <div 
+              id={submitStatus.type === 'success' ? 'message-success' : 'message-warning'}
+              style={{
+                display: 'block',
+                marginTop: '20px',
+                padding: '10px',
+                backgroundColor: submitStatus.type === 'success' ? '#e8f5e9' : '#ffebee',
+                color: submitStatus.type === 'success' ? 'green' : 'red',
+                border: `1px solid ${submitStatus.type === 'success' ? 'green' : 'red'}`,
+              }}
+            >
+              {submitStatus.message}
+            </div>
+          )}
         </div>
 
         <aside className="four columns footer-widgets">

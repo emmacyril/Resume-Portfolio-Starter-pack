@@ -1,45 +1,30 @@
 {
   "main": {
-    "name": "Sonny Sangha",
-    "occupation": "CEO of PAPA",
-    "description": "I eat, sleep and breathe React",
+    "name": "Cyril Emmanuel",
+    "occupation": "Seasoned Lead Software Engineer",
+    "description": "A dynamic and visionary Lead Software Engineer with extensive experience in spearheading the development of innovative software solutions.",
     "image": "profilepic.jpg",
-    "bio": "Hi there! I am Sonny! You might also know me as PAPA React. I've been coding for over 10 years now. As a Full Stack developer I've worked both with startups and large corporations to help build & scale their companies. Along the journey I realised my passion existed in helping others excel and pursue their dreams as upcoming developers. With this passion, I have now trained thousand's of developers across the globe. Through live coaching sessions on Youtube, I have accumulated several MILLION views demonstrating how to apply developer skills in a range of cool builds and challenges. I deliver REAL VALUE by teaching REAL WORLD projects to help students enter the world of web development. You’ll get hands-on experience and learn the skills that are required to succeed in the real-world in this community.",
-    "contactmessage": "Get in touch with me to be a part of the PAPA fam!",
-    "email": "papareact.team@gmail.com",
-    "phone": "+44 1234567899",
+    "bio": "A dynamic and visionary Lead Software Engineer with extensive experience in spearheading the development of innovative software solutions. Expert in guiding diverse teams towards the achievement of organizational goals, leveraging advanced technical skills in full-stack development, project management, and strategic planning. Committed to employing cutting-edge technologies and methodologies to solve complex challenges and drive business success. As a seasoned Lead Software Engineer with a comprehensive background in both front-end and back-end development, I excel in creating innovative solutions that bridge technology and user needs. My expertise spans across a wide range of programming languages including PHP, React.js, and Next.js, coupled with profound knowledge in database management systems such as MongoDB and MySQL.",
+    "contactmessage": "Get in touch with me for innovative software solutions!",
+    "email": "emmacyril@gmail.com",
+    "phone": "+2348091082895",
     "address": {
-      "street": "123 Dev Lane",
-      "city": "London",
-      "state": "Devosphere",
-      "zip": "W3B D3V"
+      "street": "Lagos, Nigeria",
+      "city": "Victoria Island",
+      "state": "Lagos",
+      "zip": ""
     },
-    "website": "https://www.papareact.com/course",
-    "resumedownload": "http://papareact.com",
+    "website": "https://emmacyril.com",
+    "resumedownload": "http://emmacyril.com",
     "social": [
       {
-        "name": "youtube",
-        "url": "https://www.youtube.com/channel/UCqeTj_QAnNlmt7FwzNwHZnA",
-        "className": "fa fa-youtube"
-      },
-      {
-        "name": "facebook",
-        "url": "https://www.facebook.com/sonny.sangha.3",
-        "className": "fa fa-facebook"
-      },
-      {
         "name": "linkedin",
-        "url": "https://www.linkedin.com/in/saajansangha",
+        "url": "https://www.linkedin.com/in/emmacyril",
         "className": "fa fa-linkedin"
       },
       {
-        "name": "instagram",
-        "url": "https://www.instagram.com/ssssangha/",
-        "className": "fa fa-instagram"
-      },
-      {
         "name": "github",
-        "url": "https://github.com/PapaReact",
+        "url": "https://github.com/emmacyril",
         "className": "fa fa-github"
       }
     ]
@@ -48,75 +33,202 @@
     "skillmessage": "My Programming Language Proficiency",
     "education": [
       {
-        "school": "University of Kent - UK",
-        "degree": "Bachelor's Degree, Computer Science",
-        "graduated": "July 2016",
-        "description": "Graduated with First Class Honours"
+        "school": "JSM Masterclass Experience",
+        "degree": "Full-stack Software Engineering",
+        "graduated": "Mar 2023",
+        "description": ""
+      },
+      {
+        "school": "Qualifi Ltd",
+        "degree": "Level 8 Diploma (P.h.D/DBA)",
+        "graduated": "May 2021",
+        "description": ""
+      },
+      {
+        "school": "OSISATECH",
+        "degree": "Higher National Diploma (HND)",
+        "graduated": "Nov 2009",
+        "description": ""
       }
     ],
     "work": [
       {
-        "company": "PAPA",
-        "title": "Founder and CEO",
-        "years": "May 2019 - Present",
-        "description": "Cloning all the apps possible. On the way to clone the world! Building the PAPA Fam as large as possible."
+        "company": "Qubators",
+        "title": "Head of Technical",
+        "years": "2021 - Present",
+        "description": "Responsible for leading a team of full stack, frontend, backend developers and other technical teams in the design, development, and maintenance of scalable applications."
+      },
+      {
+        "company": "Bilaad Nig. Ltd",
+        "title": "Ag Head ICT",
+        "years": "2019 - 2021",
+        "description": "This role requires managing people, researching, and implementing IT initiatives. Maintaining the organization's computers and networks This position requires planning and implementing enterprise IT solutions to improve cost-effectiveness, service quality, and business development."
+      },
+      {
+        "company": "Humber International Ltd",
+        "title": "Chief Transformation Officer",
+        "years": "2014 - 2019",
+        "description": "Plan technical implementation and advise architecture and infrastructure decisions. Co-design scalable technical platforms with new product development."
       }
     ],
     "skills": [
-      {
-        "name": "ReactJs",
-        "level": "100%"
-      },
-      {
-        "name": "Python",
-        "level": "85%"
-      },
-      {
-        "name": "Git",
-        "level": "70%"
-      },
-      {
-        "name": "JavaScript",
-        "level": "99%"
-      },
-      {
-        "name": "Web Development",
-        "level": "95%"
-      }
+      { "name": "Python", "level": "90%" },
+      { "name": "Blockchain", "level": "65%" },
+      { "name": "React.js", "level": "90%" },
+      { "name": "Next.js", "level": "85%" },
+      { "name": "PHP", "level": "95%" },
+      { "name": "React Native, Flutter, Android Studio", "level": "75%" },
+      { "name": "MongoDB", "level": "80%" },
+      { "name": "MySQL", "level": "85%" }
     ]
   },
   "portfolio": {
     "projects": [
       {
-        "title": "Snapchat Clone (React JS)",
-        "category": "",
-        "image": "snapchat.jpg",
-        "url": "https://youtu.be/1kGISk5ft2w"
+        "title": "Car Rent Project",
+        "category": "A user-friendly web app develo",
+        "image": "carrent.jpg",
+        "url": "#"
       },
       {
-        "title": "Gmail Clone (React JS)",
-        "category": "",
-        "image": "gmail.jpg",
-        "url": "https://youtu.be/b7nrXjS6Dqs"
+        "title": "Smootube Project",
+        "category": "An open source frontend built",
+        "image": "smoothtube.jpg",
+        "url": "#"
       },
       {
-        "title": "LinkedIn Clone (React JS)",
-        "category": "",
-        "image": "linkedin.jpg",
-        "url": "https://youtu.be/QaYts9sPmcY"
+        "title": "Airbnb Clone",
+        "category": "A simple Airbnb frontend clone",
+        "image": "airbnb.jpg",
+        "url": "#"
+      },
+      {
+        "title": "MangoChat: Blockchain Chat App",
+        "category": "A simple and clean fullstack b",
+        "image": "mangochat.jpg",
+        "url": "#"
+      },
+      {
+        "title": "Music App Player",
+        "category": "Simple Music App Frontend with",
+        "image": "musicplayer.jpg",
+        "url": "#"
+      },
+      {
+        "title": "Detroinic",
+        "category": "For every usage, you get free",
+        "image": "detronic.jpg",
+        "url": "#"
+      },
+      {
+        "title": "Getpower",
+        "category": "You can now buy your electrici",
+        "image": "getpower.jpg",
+        "url": "#"
+      },
+      {
+        "title": "Torain",
+        "category": "Our products are widely accept",
+        "image": "torain.jpg",
+        "url": "#"
+      },
+      {
+        "title": "WinWin Fund",
+        "category": "Mobile app development for ban",
+        "image": "winwin.png",
+        "url": "#"
+      },
+      {
+        "title": "CePay",
+        "category": "Fast & flexible payment gatewa",
+        "image": "cepay.jpg",
+        "url": "#"
       }
     ]
   },
   "testimonials": {
     "testimonials": [
       {
-        "text": "Sonny is absolutely excellent, his depth of knowledge & his mentorship really meant a lot to us... I would definitely recommend",
-        "user": "Jorge Fouto"
+        "text": "I feel like i should give him 6 stars as it his work is a cut above the other 5 star reviews i have left. very fast great worker very ...",
+        "user": "Sam"
       },
       {
-        "text": "Learning with Sonny has been AWESOME, he makes learning React so easy and approachable, you'll finally feel like you know what's going on!",
-        "user": "Adam Curtis"
+        "text": "Very effective and the greatest fullstack engineering guy on Fiverr. Great guy to work with. He is really a professional, i feel like i should give him 6 stars as a very fast and great worker. very responsive to edits *i was quite demanding and this guy was amazing thank you so much",
+        "user": "beasty1"
+      },
+      {
+        "text": "What a wonderful experience. Everything was delivered as requested.",
+        "user": "cstacyc"
+      },
+      {
+        "text": "Cyril has excellent understanding of user needs and all of his designs are creative and elegant in simplicity. He is very well thought out and have an excellent response to feedback",
+        "user": "Bob Smith"
+      },
+      {
+        "text": "excellent communication fantastic experience and extremely patient highly recommended should have a 10 star review.. THANK YOU CYRIL YOU HAVE BEEN WONDERFUL!!!",
+        "user": "mastervapes"
+      },
+      {
+        "text": "Thank you Cyril! You have done it again. We are so appreciative of your creativity and professionalism. For those of you reading this review look no further. Cyril is amazing and has always exceeded our expectations. Cyril is the only seller we use on Fiverr for ALL of our website needs.",
+        "user": "shailaw"
+      },
+      {
+        "text": "Cyril is awesome at what he does. He is the ONLY seller we use for ALL of our website needs. Great communication and always delivers on time. Thanks Cyril! Fabulous Job!",
+        "user": "BoSmith"
+      },
+      {
+        "text": "Cyril did amazing and quick work. Delivered on time and exceeded my expectations! I'm very impressed and very happy customer.",
+        "user": "rlagana"
+      },
+      {
+        "text": "KessySwift is the real deal. She is thorough, fast, very creative, knows what she is doing, and just really good in preparing the websites. You cannot ask for anyone better. She is going to prepare many websites for me. Edutomrph.",
+        "user": "edutomrph"
+      },
+      {
+        "text": "As always, same day service, great response time with a super great turn out. I will always use you again and again.. Thank you Kessyswift for a professional job!",
+        "user": "paulnoe"
       }
     ]
-  }
+  },
+  "awards": [
+    {
+      "title": "Web/Mobile Developer of the Year 2023",
+      "issuer": "Presidential Award Mid-Level"
+    },
+    {
+      "title": "Web/Mobile Developer of the Year 2023",
+      "issuer": "Departmental Award Level"
+    },
+    {
+      "title": "Staff of the Year 2022",
+      "issuer": "Departmental Award Mid-Level"
+    }
+  ],
+  "certifications": [
+    {
+      "title": "Programming for Everybody (Python)",
+      "issuer": "University of Michigan",
+      "date": "July 2014"
+    },
+    {
+      "title": "Internet History, Technology, and Security",
+      "issuer": "University of Michigan",
+      "date": "December 2013"
+    },
+    {
+      "title": "Startup Engineering - Statement of Accomplishment",
+      "issuer": "Stanford University",
+      "date": "September 2013"
+    },
+    {
+      "title": "Creative Programming for Digital Media & Mobile Apps",
+      "issuer": "University of London",
+      "date": "July 2013"
+    },
+    {
+      "title": "Inspiring Leadership through Emotional Intelligence",
+      "issuer": "Case Western Reserve University",
+      "date": "Jun 2013"
+    }
+  ]
 }

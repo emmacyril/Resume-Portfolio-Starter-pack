@@ -1,18 +1,25 @@
 import React from "react";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 const Testimonials = ({ data }) => {
-  if (data) {
-    var testimonials = data.testimonials.map(function (testimonials) {
-      return (
-        <li key={testimonials.user}>
-          <blockquote>
-            <p>{testimonials.text}</p>
-            <cite>{testimonials.user}</cite>
-          </blockquote>
-        </li>
-      );
-    });
+  if (!data || !data.testimonials) {
+    return null;
   }
+
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 5000,
+    pauseOnHover: true,
+    arrows: true,
+    className: "testimonial-slider"
+  };
 
   return (
     <section id="testimonials">
@@ -25,7 +32,16 @@ const Testimonials = ({ data }) => {
           </div>
 
           <div className="ten columns flex-container">
-            <ul className="slides">{testimonials}</ul>
+            <Slider {...settings}>
+              {data.testimonials.map((testimonial) => (
+                <div key={testimonial.user} className="testimonial-slide">
+                  <blockquote>
+                    <p>{testimonial.text}</p>
+                    {testimonial.user}
+                  </blockquote>
+                </div>
+              ))}
+            </Slider>
           </div>
         </div>
       </div>
