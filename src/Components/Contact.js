@@ -1,23 +1,22 @@
 import React, { useState } from "react";
+import { Alert, AlertDescription } from '@/components/ui/alert';
 
 const Contact = ({ data }) => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [subject, setSubject] = useState("");
-  const [message, setMessage] = useState("");
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    subject: "",
+    message: ""
+  });
   const [submitStatus, setSubmitStatus] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  if (data) {
-    var contactName = data.name;
-    var street = data.address.street;
-    var city = data.address.city;
-    var state = data.address.state;
-    var zip = data.address.zip;
-    var phone = data.phone;
-    var contactEmail = data.email;
-    var contactMessage = data.contactmessage;
-  }
+  const { name, email, subject, message } = formData;
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prevState => ({ ...prevState, [name]: value }));
+  };
 
   const submitForm = async (e) => {
     e.preventDefault();
@@ -27,23 +26,17 @@ const Contact = ({ data }) => {
     try {
       const response = await fetch('/api/send-email', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ name, email, subject, message }),
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
       });
 
-      const data = await response.json();
-
-      if (response.ok) {
-        setSubmitStatus({ type: 'success', message: data.message });
-        setName("");
-        setEmail("");
-        setSubject("");
-        setMessage("");
-      } else {
-        setSubmitStatus({ type: 'error', message: data.message || 'Failed to send email' });
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
+
+      const result = await response.json();
+      setSubmitStatus({ type: 'success', message: result.message });
+      setFormData({ name: "", email: "", subject: "", message: "" });
     } catch (error) {
       console.error('Error:', error);
       setSubmitStatus({ type: 'error', message: 'There was an error sending your message. Please try again.' });
@@ -53,132 +46,89 @@ const Contact = ({ data }) => {
   };
 
   return (
-    <section id="contact">
-      <div className="row section-head">
-        <div className="two columns header-col">
-          <h1>
-            <span>Get In Touch.</span>
-          </h1>
-        </div>
+    <section id="contact" className="bg-gray-100 py-12">
+      <div className="container mx-auto px-4">
+        <h2 className="text-3xl font-bold mb-8 text-center">Get In Touch</h2>
+        <p className="text-center mb-8">{data?.contactmessage}</p>
 
-        <div className="ten columns">
-          <p className="lead">{contactMessage}</p>
-        </div>
-      </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <form onSubmit={submitForm} className="md:col-span-2">
+            <div className="mb-4">
+              <label htmlFor="name" className="block mb-2">Name *</label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                value={name}
+                onChange={handleChange}
+                required
+                className="w-full px-3 py-2 border rounded"
+              />
+            </div>
 
-      <div className="row">
-        <div className="eight columns">
-          <form onSubmit={submitForm}>
-            <fieldset>
-              <div>
-                <label htmlFor="contactName">
-                  Name <span className="required">*</span>
-                </label>
-                <input
-                  type="text"
-                  value={name}
-                  size="35"
-                  id="contactName"
-                  name="contactName"
-                  onChange={(e) => setName(e.target.value)}
-                  required
-                />
-              </div>
+            <div className="mb-4">
+              <label htmlFor="email" className="block mb-2">Email *</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                value={email}
+                onChange={handleChange}
+                required
+                className="w-full px-3 py-2 border rounded"
+              />
+            </div>
 
-              <div>
-                <label htmlFor="contactEmail">
-                  Email <span className="required">*</span>
-                </label>
-                <input
-                  type="email"
-                  value={email}
-                  size="35"
-                  id="contactEmail"
-                  name="contactEmail"
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                />
-              </div>
+            <div className="mb-4">
+              <label htmlFor="subject" className="block mb-2">Subject</label>
+              <input
+                type="text"
+                id="subject"
+                name="subject"
+                value={subject}
+                onChange={handleChange}
+                className="w-full px-3 py-2 border rounded"
+              />
+            </div>
 
-              <div>
-                <label htmlFor="contactSubject">Subject</label>
-                <input
-                  type="text"
-                  value={subject}
-                  size="35"
-                  id="contactSubject"
-                  name="contactSubject"
-                  onChange={(e) => setSubject(e.target.value)}
-                />
-              </div>
+            <div className="mb-4">
+              <label htmlFor="message" className="block mb-2">Message *</label>
+              <textarea
+                id="message"
+                name="message"
+                value={message}
+                onChange={handleChange}
+                required
+                className="w-full px-3 py-2 border rounded h-32"
+              ></textarea>
+            </div>
 
-              <div>
-                <label htmlFor="contactMessage">
-                  Message <span className="required">*</span>
-                </label>
-                <textarea
-                  cols="50"
-                  rows="15"
-                  value={message}
-                  onChange={(e) => setMessage(e.target.value)}
-                  id="contactMessage"
-                  name="contactMessage"
-                  required
-                ></textarea>
-              </div>
-
-              <div>
-                <button type="submit" className="submit" disabled={isLoading}>
-                  {isLoading ? 'Sending...' : 'Submit'}
-                </button>
-              </div>
-            </fieldset>
+            <button
+              type="submit"
+              disabled={isLoading}
+              className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-300"
+            >
+              {isLoading ? 'Sending...' : 'Submit'}
+            </button>
           </form>
 
-          {isLoading && (
-            <div className="loading-indicator" style={{
-              textAlign: 'center',
-              marginTop: '20px',
-              fontSize: '18px',
-              color: '#fff'
-            }}>
-              Sending your message...
-            </div>
-          )}
-
-          {submitStatus && !isLoading && (
-            <div 
-              id={submitStatus.type === 'success' ? 'message-success' : 'message-warning'}
-              style={{
-                display: 'block',
-                marginTop: '20px',
-                padding: '10px',
-                backgroundColor: submitStatus.type === 'success' ? '#e8f5e9' : '#ffebee',
-                color: submitStatus.type === 'success' ? 'green' : 'red',
-                border: `1px solid ${submitStatus.type === 'success' ? 'green' : 'red'}`,
-              }}
-            >
-              {submitStatus.message}
-            </div>
-          )}
-        </div>
-
-        <aside className="four columns footer-widgets">
-          <div className="widget widget_contact">
-            <h4>Address and Phone</h4>
-            <p className="address">
-              {contactName}
-              <br />
-              {contactEmail}
-              <br />
-              <br />
-              {street} <br />
-              {city}, {state} {zip}
-              <br />
-              <span>{phone}</span>
+          <div className="md:col-span-1">
+            <h3 className="text-xl font-semibold mb-4">Address and Phone</h3>
+            <p>
+              {data?.name}<br />
+              {data?.email}<br />
+              {data?.address?.street}<br />
+              {data?.address?.city}, {data?.address?.state} {data?.address?.zip}<br />
+              {data?.phone}
             </p>
           </div>
-        </aside>
+        </div>
+
+        {submitStatus && (
+          <Alert variant={submitStatus.type === 'success' ? 'default' : 'destructive'} className="mt-4">
+            <AlertDescription>{submitStatus.message}</AlertDescription>
+          </Alert>
+        )}
       </div>
     </section>
   );
