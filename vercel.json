@@ -3,7 +3,8 @@
   "builds": [
     {
       "src": "package.json",
-      "use": "@vercel/node"
+      "use": "@vercel/static-build",
+      "config": { "distDir": "build" }
     },
     {
       "src": "api/**/*.js",
@@ -11,13 +12,8 @@
     }
   ],
   "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "/api/$1"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/index.html"
-    }
+    { "src": "/api/(.*)", "dest": "/api/$1" },
+    { "src": "^/static/(.*)", "dest": "/static/$1" },
+    { "src": ".*", "dest": "/index.html" }
   ]
 }
