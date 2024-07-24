@@ -1,23 +1,13 @@
-import React, { useState } from "react";
+// src/Components/Contact.js
+import React, { useState } from 'react';
 
 const Contact = ({ data }) => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [subject, setSubject] = useState("");
-  const [message, setMessage] = useState("");
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [subject, setSubject] = useState('');
+  const [message, setMessage] = useState('');
   const [submitStatus, setSubmitStatus] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-
-  if (data) {
-    var contactName = data.name;
-    var street = data.address.street;
-    var city = data.address.city;
-    var state = data.address.state;
-    var zip = data.address.zip;
-    var phone = data.phone;
-    var contactEmail = data.email;
-    var contactMessage = data.contactmessage;
-  }
 
   const submitForm = async (e) => {
     e.preventDefault();
@@ -40,10 +30,10 @@ const Contact = ({ data }) => {
       const data = await response.json();
 
       setSubmitStatus({ type: 'success', message: data.message });
-      setName("");
-      setEmail("");
-      setSubject("");
-      setMessage("");
+      setName('');
+      setEmail('');
+      setSubject('');
+      setMessage('');
     } catch (error) {
       console.error('Error:', error);
       setSubmitStatus({ type: 'error', message: 'There was an error sending your message. Please try again.' });
@@ -62,7 +52,7 @@ const Contact = ({ data }) => {
         </div>
 
         <div className="ten columns">
-          <p className="lead">{contactMessage}</p>
+          <p className="lead">{data?.contactMessage}</p>
         </div>
       </div>
 
@@ -167,15 +157,15 @@ const Contact = ({ data }) => {
           <div className="widget widget_contact">
             <h4>Address and Phone</h4>
             <p className="address">
-              {contactName}
+              {data?.contactName}
               <br />
-              {contactEmail}
+              {data?.contactEmail}
               <br />
               <br />
-              {street} <br />
-              {city}, {state} {zip}
+              {data?.street} <br />
+              {data?.city}, {data?.state} {data?.zip}
               <br />
-              <span>{phone}</span>
+              <span>{data?.phone}</span>
             </p>
           </div>
         </aside>
