@@ -33,17 +33,17 @@ const Contact = ({ data }) => {
         body: JSON.stringify({ name, email, subject, message }),
       });
 
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
       const data = await response.json();
 
-      if (response.ok) {
-        setSubmitStatus({ type: 'success', message: data.message });
-        setName("");
-        setEmail("");
-        setSubject("");
-        setMessage("");
-      } else {
-        setSubmitStatus({ type: 'error', message: data.message || 'Failed to send email' });
-      }
+      setSubmitStatus({ type: 'success', message: data.message });
+      setName("");
+      setEmail("");
+      setSubject("");
+      setMessage("");
     } catch (error) {
       console.error('Error:', error);
       setSubmitStatus({ type: 'error', message: 'There was an error sending your message. Please try again.' });
