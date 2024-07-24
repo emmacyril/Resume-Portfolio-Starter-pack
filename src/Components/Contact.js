@@ -5,40 +5,11 @@ const Contact = ({ data }) => {
   const [email, setEmail] = useState('');
   const [subject, setSubject] = useState('');
   const [message, setMessage] = useState('');
-  const [submitStatus, setSubmitStatus] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
 
-  const submitForm = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    setSubmitStatus(null);
-    setIsLoading(true);
-
-    try {
-      const response = await fetch('/api/send-email.php', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ name, email, subject, message }),
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const data = await response.json();
-
-      setSubmitStatus({ type: 'success', message: data.message });
-      setName('');
-      setEmail('');
-      setSubject('');
-      setMessage('');
-    } catch (error) {
-      console.error('Error:', error);
-      setSubmitStatus({ type: 'error', message: 'There was an error sending your message. Please try again.' });
-    } finally {
-      setIsLoading(false);
-    }
+    const mailtoLink = `mailto:${data?.contactEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`)}`;
+    window.location.href = mailtoLink;
   };
 
   return (
@@ -49,7 +20,6 @@ const Contact = ({ data }) => {
             <span>Get In Touch.</span>
           </h1>
         </div>
-
         <div className="ten columns">
           <p className="lead">{data?.contactMessage}</p>
         </div>
@@ -57,7 +27,7 @@ const Contact = ({ data }) => {
 
       <div className="row">
         <div className="eight columns">
-          <form onSubmit={submitForm}>
+          <form onSubmit={handleSubmit}>
             <fieldset>
               <div>
                 <label htmlFor="contactName">
@@ -117,39 +87,12 @@ const Contact = ({ data }) => {
               </div>
 
               <div>
-                <button type="submit" className="submit" disabled={isLoading}>
-                  {isLoading ? 'Sending...' : 'Submit'}
+                <button type="submit" className="submit">
+                  Send Email
                 </button>
               </div>
             </fieldset>
           </form>
-
-          {isLoading && (
-            <div className="loading-indicator" style={{
-              textAlign: 'center',
-              marginTop: '20px',
-              fontSize: '18px',
-              color: '#fff'
-            }}>
-              Sending your message...
-            </div>
-          )}
-
-          {submitStatus && !isLoading && (
-            <div 
-              id={submitStatus.type === 'success' ? 'message-success' : 'message-warning'}
-              style={{
-                display: 'block',
-                marginTop: '20px',
-                padding: '10px',
-                backgroundColor: submitStatus.type === 'success' ? '#e8f5e9' : '#ffebee',
-                color: submitStatus.type === 'success' ? 'green' : 'red',
-                border: `1px solid ${submitStatus.type === 'success' ? 'green' : 'red'}`,
-              }}
-            >
-              {submitStatus.message}
-            </div>
-          )}
         </div>
 
         <aside className="four columns footer-widgets">
