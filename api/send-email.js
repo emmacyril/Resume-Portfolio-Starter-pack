@@ -1,6 +1,7 @@
-import nodemailer from 'nodemailer';
+const nodemailer = require('nodemailer');
+require('dotenv').config();
 
-export default async function handler(req, res) {
+module.exports = async (req, res) => {
   if (req.method !== 'POST') {
     return res.status(405).json({ message: 'Method Not Allowed' });
   }
@@ -33,4 +34,4 @@ export default async function handler(req, res) {
     console.error('Error sending email:', error);
     res.status(500).json({ message: 'Error sending email', error: error.message });
   }
-}
+};
