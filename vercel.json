@@ -16,10 +16,5 @@
     { "src": "^/static/(.*)", "dest": "/static/$1" },
     { "src": "^/(.*).(js|css|json|ico|png|txt|svg|jpg|jpeg|gif|eot|ttf|woff|woff2)$", "dest": "/$1.$2" },
     { "src": ".*", "dest": "/index.html" }
-  ],
-  "functions": {
-    "api/*.php": {
-      "runtime": "vercel-php@0.7.1"
-    }
-  }
+  ]
 }
