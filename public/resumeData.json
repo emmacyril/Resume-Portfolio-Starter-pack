@@ -14,8 +14,8 @@
       "state": "Lagos",
       "zip": ""
     },
-    "website": "https://emmacyril.com",
-    "resumedownload": "http://emmacyril.com",
+    "website": "https://emmacyril.eminify.com/",
+    "resumedownload": "https://emmacyril.eminify.com/",
     "social": [
       {
         "name": "linkedin",
@@ -45,22 +45,28 @@
         "description": ""
       },
       {
+        "school": "Ahmadu Bello University",
+        "degree": "B.Sc. (Computer Science)",
+        "graduated": "Nov 2009",
+        "description": ""
+      },
+      {
         "school": "OSISATECH",
         "degree": "Higher National Diploma (HND)",
-        "graduated": "Nov 2009",
+        "graduated": "Nov 2005",
         "description": ""
       }
     ],
     "work": [
       {
-        "company": "Embtors",
-        "title": "Head of Technical",
+        "company": "Freelance",
+        "title": "Senior Full Stack Engineer & Technical Leader ",
         "years": "2021 - Present",
-        "description": "Responsible for leading a team of full stack, frontend, backend developers and other technical teams in the design, development, and maintenance of scalable applications."
+        "description": "Architected microservices-based solutions improving system scalability by 40%, implemented CI/CD pipelines reducing deployment time by 60% and increasing release frequency by 200%, developed a blockchain-based supply chain solution reducing fraud by 75%, led and mentored a team of 15+ developers boosting productivity by 30%, and optimized database queries and implemented caching improving response times by 50%."
       },
       {
         "company": "Bilaad Nig. Ltd",
-        "title": "Ag Head ICT",
+        "title": "Senior IT Officer",
         "years": "2019 - 2021",
         "description": "This role requires managing people, researching, and implementing IT initiatives. Maintaining the organization's computers and networks This position requires planning and implementing enterprise IT solutions to improve cost-effectiveness, service quality, and business development."
       },
@@ -69,6 +75,12 @@
         "title": "Chief Transformation Officer",
         "years": "2014 - 2019",
         "description": "Plan technical implementation and advise architecture and infrastructure decisions. Co-design scalable technical platforms with new product development."
+      },
+      {
+        "company": "Niger State Development Company",
+        "title": "ICT Officer",
+        "years": "2009 - 2014",
+        "description": "Led the ICT Unit while overseeing technology strategy and implementation, conducted training programs to upskill staff on emerging ICT technologies, and designed and developed innovative software solutions to enhance operational efficiency."
       }
     ],
     "skills": [
