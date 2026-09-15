@@ -2,14 +2,16 @@
 
 [Live website](https://emmacyril.eminify.com/) · [GitHub](https://github.com/emmacyril) · [LinkedIn](https://www.linkedin.com/in/emmacyril/)
 
-**I engineer the systems behind the experience.**
+**An interactive engineering room by Cyril Emmanuel.**
 
 A personal engineering portfolio covering payments, identity, operational platforms, AI integrations and developer tools.
 
 ## Experience
 
-- Full-screen hero with a custom Three.js sculpture: interface, API and data layers.
-- Pointer and drag interaction, layer controls, pause/resume and reduced-motion support.
+- An original Three.js workspace with a machined desk, monitor, laptop and individual keycaps.
+- Selecting RewaPay, AddressDox, EMIWARP or Qub-Surf changes the 3D monitor to that project’s public preview.
+- Drag and pointer response, keyboard-accessible rotation/reset buttons, pause/resume and reduced-motion support.
+- An off-white and cobalt visual system, responsive project views and a personal engineering narrative.
 - Six featured case studies and a searchable, filterable index of 24 projects.
 - Public product screenshots with source captions and honest development status.
 - An interactive payment retry model showing idempotency and mismatched-request rejection. It is synthetic demonstration data, not a live payment service.
@@ -34,7 +36,7 @@ Vite serves the local site at `http://127.0.0.1:4173`. Vercel builds the static 
 
 - `src/data.ts`: project copy, attribution, status and sources.
 - `src/image-assets.ts`: selected public image URLs and local fallbacks.
-- `src/HeroScene.tsx`: lazy-loaded Three.js scene; capped render rate and device pixel ratio, offscreen suspension, disposal and WebGL fallback.
+- `src/StudioHero.tsx` and `src/StudioScene.tsx`: project selection and lazy-loaded 3D workspace; capped render rate and pixel ratio, offscreen suspension, resource disposal and a static fallback.
 - `src/paymentBoundary.ts`: pure demonstration model; covered by invariant tests.
 - `public/downloads/`: public engineering résumé.
 
@@ -44,6 +46,6 @@ Project names and product media remain the property of their respective owners. 
 
 This repository began as a fork of [Sonny Sangha’s Resume Portfolio Starter Pack](https://github.com/sonnysangha/Resume-Portfolio-Starter-pack). The original version is retained in Git history. The current application is a new React, TypeScript and Three.js implementation.
 
-The original full-screen code image and Cyril’s supplied header are retained from his own site and branding. The current visual direction was informed by studying [Moncy](https://www.moncy.dev/), [Arock](https://arocksworld.com/) and [Valentin Cheval](https://valentincheval.design/); their code and artwork were not copied.
+The workspace geometry, materials, scene composition and interaction code are authored for this portfolio. Cyril’s supplied header and original website image remain available in the repository. Project screenshots are credited in their case studies.
 
 Uses [Three.js](https://threejs.org/) and [DM Sans](https://fonts.google.com/specimen/DM+Sans), distributed under their respective licences.

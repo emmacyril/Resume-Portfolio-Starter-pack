@@ -1,12 +1,4 @@
-import {
-  StrictMode,
-  Suspense,
-  lazy,
-  useEffect,
-  useRef,
-  useState,
-  type PointerEvent as ReactPointerEvent,
-} from "react";
+import { StrictMode, Suspense, lazy, useEffect, useRef, useState } from "react";
 import { createRoot } from "react-dom/client";
 import {
   categories,
@@ -19,7 +11,7 @@ import { projectImage } from "./image-assets";
 import "@fontsource-variable/dm-sans/wght.css";
 import "./styles.css";
 
-const HeroScene = lazy(() => import("./HeroScene"));
+import StudioHero from "./StudioHero";
 const PaymentBoundary = lazy(() => import("./PaymentDemo"));
 const selectedIds = [
   "rewapay",
@@ -37,12 +29,6 @@ const links = {
   studio: "https://www.eminify.com/",
   email: "mailto:emmacyril@gmail.com",
 };
-const layers = [
-  { name: "Interface", description: "Make the next action clear." },
-  { name: "API", description: "Give the rules a reliable boundary." },
-  { name: "Data", description: "Preserve the truth of every transaction." },
-];
-
 function Arrow({ diagonal = false }: { diagonal?: boolean }) {
   return (
     <svg
@@ -60,7 +46,7 @@ function Arrow({ diagonal = false }: { diagonal?: boolean }) {
     </svg>
   );
 }
-function Asterisk() {
+function SystemMark() {
   return (
     <svg
       viewBox="0 0 40 40"
@@ -70,9 +56,9 @@ function Asterisk() {
       aria-hidden="true"
     >
       <path
-        d="M20 0v40M0 20h40M6 6l28 28M6 34 34 6"
+        d="M20 3 35 11v18L20 37 5 29V11L20 3Zm0 16L5 11m15 8 15-8M20 19v18M12 7l15 8v9"
         stroke="currentColor"
-        strokeWidth="4"
+        strokeWidth="1.7"
       />
     </svg>
   );
@@ -301,78 +287,210 @@ function CaseStudy({
     </dialog>
   );
 }
-function WorkCard({
-  project,
-  index,
-  onOpen,
-  motion,
-}: {
-  project: Project;
-  index: number;
-  onOpen: () => void;
-  motion: boolean;
-}) {
-  const tilt = (event: ReactPointerEvent<HTMLButtonElement>) => {
-    if (!motion || event.pointerType !== "mouse") return;
-    const r = event.currentTarget.getBoundingClientRect();
-    event.currentTarget.style.setProperty(
-      "--rx",
-      `${-((event.clientY - r.top) / r.height - 0.5) * 5}deg`,
-    );
-    event.currentTarget.style.setProperty(
-      "--ry",
-      `${((event.clientX - r.left) / r.width - 0.5) * 5}deg`,
-    );
-  };
-  const reset = (event: ReactPointerEvent<HTMLButtonElement>) => {
-    event.currentTarget.style.setProperty("--rx", "0deg");
-    event.currentTarget.style.setProperty("--ry", "0deg");
-  };
+function WorkShowcase({ onOpen }: { onOpen: (project: Project) => void }) {
+  const [index, setIndex] = useState(0);
+  const project = selected[index];
   return (
-    <article className={`work-card work-${project.id}`} data-reveal>
-      <button
-        className="work-visual"
-        onClick={onOpen}
-        onPointerMove={tilt}
-        onPointerLeave={reset}
-        aria-label={`Explore ${project.name}`}
-      >
-        <span className="work-number">
-          0{index + 1} / {project.year}
-        </span>
-        <div className={`image-stage image-${project.id}`}>
-          <ProjectImage project={project} />
-        </div>
-        <span className="work-open">
-          <Arrow diagonal />
-        </span>
-        <span className="work-visual-label">
-          {project.imageKind === "documentation"
-            ? "Repository documentation"
-            : "Public product preview"}
-        </span>
-      </button>
-      <div className="work-card-meta">
-        <button onClick={onOpen}>
-          {project.name} <Arrow diagonal />
-        </button>
-        <span>{project.category}</span>
+    <div className="work-showcase">
+      <div className="work-selector" aria-label="Choose a featured project">
+        {selected.map((p, i) => (
+          <button
+            key={p.id}
+            onClick={() => setIndex(i)}
+            aria-pressed={index === i}
+          >
+            <small>0{i + 1}</small>
+            <span>{p.id === "addressdox" ? "AddressDox" : p.name}</span>
+            <Arrow diagonal />
+          </button>
+        ))}
+        <p>
+          Different products.
+          <br />
+          One commitment to the whole system.
+        </p>
       </div>
-      <p>{project.summary}</p>
-    </article>
+      <article className="work-feature" key={project.id}>
+        <button
+          className={`feature-image image-${project.id}`}
+          onClick={() => onOpen(project)}
+          aria-label={`Explore ${project.name}`}
+        >
+          <div className="feature-browser">
+            <i />
+            <i />
+            <i />
+            <span>{project.category}</span>
+          </div>
+          <ProjectImage project={project} eager />
+          <span className="feature-open">
+            Explore
+            <br />
+            project <Arrow diagonal />
+          </span>
+        </button>
+        <div className="feature-caption">
+          <div>
+            <p className="micro">{project.eyebrow}</p>
+            <button onClick={() => onOpen(project)}>
+              {project.name} <Arrow diagonal />
+            </button>
+            <p>{project.summary}</p>
+          </div>
+          <span className="feature-year">
+            {project.year}
+            <small>{project.status}</small>
+          </span>
+        </div>
+        <div className="feature-pagination">
+          <span>
+            0{index + 1} <i>/ 0{selected.length}</i>
+          </span>
+          <div>
+            <button
+              aria-label="Previous featured project"
+              onClick={() =>
+                setIndex((index + selected.length - 1) % selected.length)
+              }
+            >
+              ←
+            </button>
+            <button
+              aria-label="Next featured project"
+              onClick={() => setIndex((index + 1) % selected.length)}
+            >
+              →
+            </button>
+          </div>
+        </div>
+      </article>
+    </div>
+  );
+}
+const principles = [
+  {
+    title: "Make the experience clear.",
+    label: "01 / INTERFACE",
+    body: "The interface is where someone decides what to do next. I connect that experience to permissions, validation and predictable responses.",
+    flow: ["Intent", "Interface", "API contract"],
+  },
+  {
+    title: "Expect the unexpected.",
+    label: "02 / SYSTEMS",
+    body: "Requests repeat. Providers time out. A dependable system recovers without duplicating actions or losing their history.",
+    flow: ["Request", "Retry safely", "Preserve state"],
+  },
+  {
+    title: "Build for the people after you.",
+    label: "03 / OPERATIONS",
+    body: "Observability, approvals, reversals and handover belong in the product. They give the team control long after the first release.",
+    flow: ["Release", "Observe", "Operate"],
+  },
+];
+function Engineering() {
+  const [active, setActive] = useState(0),
+    [lab, setLab] = useState(false);
+  return (
+    <section id="approach" className="approach-section section-pad">
+      <div className="section-label">
+        <span>03 / UNDER THE SURFACE</span>
+        <SystemMark />
+      </div>
+      <h2 className="display-heading" data-reveal>
+        The interface is
+        <br />
+        <span>only the beginning.</span>
+      </h2>
+      <div className="engineering-grid">
+        <div className="engineering-intro">
+          <p>
+            What happens after the click
+            <br />
+            is part of the experience.
+          </p>
+          <div className="system-orbit" aria-hidden="true">
+            <div />
+            <div />
+            <div />
+            <span>UI</span>
+            <span>API</span>
+            <span>DATA</span>
+            <b>↗</b>
+          </div>
+          <span className="micro">
+            INTERFACE / SERVICE / OPERATIONAL REALITY
+          </span>
+        </div>
+        <div className="principle-list">
+          {principles.map((p, i) => (
+            <article
+              key={p.title}
+              className={i === active ? "principle-active" : ""}
+            >
+              <button
+                onClick={() => setActive(active === i ? -1 : i)}
+                aria-expanded={active === i}
+                aria-controls={`principle-${i}`}
+              >
+                <small>{p.label}</small>
+                <span>{p.title}</span>
+                <b>{i === active ? "−" : "+"}</b>
+              </button>
+              <div id={`principle-${i}`} hidden={active !== i}>
+                <p>{p.body}</p>
+                <div className="principle-flow">
+                  {p.flow.map((x, j) => (
+                    <span key={x}>
+                      {x}
+                      {j < 2 ? <i>→</i> : null}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+      <div className="lab-invitation">
+        <div>
+          <span className="micro">A SMALL INTERACTIVE EXAMPLE</span>
+          <h3>
+            One payment.
+            <br />
+            Even when the request repeats.
+          </h3>
+          <p>
+            Explore what happens when a response is lost—and the same request
+            arrives again.
+          </p>
+        </div>
+        <button
+          className="circle-link"
+          onClick={() => setLab(!lab)}
+          aria-expanded={lab}
+          aria-controls="engineering-demo"
+        >
+          <span>{lab ? "Close demo" : "Try the demo"}</span>
+          {lab ? <b>−</b> : <Arrow diagonal />}
+        </button>
+      </div>
+      {lab ? (
+        <div id="engineering-demo" className="engineering-demo">
+          <Suspense fallback={<p>Loading the demonstration…</p>}>
+            <PaymentBoundary />
+          </Suspense>
+        </div>
+      ) : null}
+    </section>
   );
 }
 function App() {
   const [motion, setMotion] = useMotion();
-  const [layer, setLayer] = useState(-1);
   const [menu, setMenu] = useState(false);
   const [activeProject, setActiveProject] = useState<Project | null>(null);
   const [archive, setArchive] = useState(false);
   const [category, setCategory] = useState<Category>("All work");
   const [query, setQuery] = useState("");
-  const [lab, setLab] = useState(false);
-  const [copied, setCopied] = useState(false);
-  const copyTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   useReveals(motion);
   useEffect(() => {
     document.documentElement.dataset.motion = motion ? "on" : "off";
@@ -388,7 +506,6 @@ function App() {
     return () => {
       window.removeEventListener("hashchange", resolve);
       window.removeEventListener("popstate", resolve);
-      if (copyTimer.current) clearTimeout(copyTimer.current);
     };
   }, []);
   function openProject(p: Project) {
@@ -400,15 +517,6 @@ function App() {
     if (history.state?.portfolioCase) history.back();
     else history.replaceState(null, "", "#work");
   }
-  async function copyEmail() {
-    try {
-      await navigator.clipboard.writeText("emmacyril@gmail.com");
-      setCopied(true);
-      copyTimer.current = setTimeout(() => setCopied(false), 2500);
-    } catch {
-      window.location.href = links.email;
-    }
-  }
   const filtered = filterProjects(projects, category, query);
   return (
     <>
@@ -417,16 +525,17 @@ function App() {
       </a>
       <header className="site-header">
         <a className="wordmark" href="#home" aria-label="Cyril Emmanuel home">
-          cyril<span>emmanuel</span>
+          Cyril<span>Emmanuel</span>
           <i />
         </a>
-        <span className="header-location">
-          LAGOS, NG <span>—</span> GLOBAL OUTLOOK
-        </span>
+        <div className="header-socials">
+          <span>Elsewhere /</span>
+          <a href={links.github}>gh</a>
+          <i>/</i>
+          <a href={links.linkedin}>in</a>
+        </div>
         <nav aria-label="Main navigation">
-          <a href="#work">
-            Work <sup>06</sup>
-          </a>
+          <a href="#work">Work</a>
           <a href="#about">About</a>
           <a href="#contact">
             Let’s talk <Arrow diagonal />
@@ -442,156 +551,28 @@ function App() {
         </button>
       </header>
       <main>
-        <section id="home" className="hero" aria-labelledby="hero-title">
-          <div className="hero-background" />
-          <div className="hero-grid" aria-hidden="true" />
-          <div className="hero-orbit">
-            <Suspense
-              fallback={
-                <div className="scene-fallback">
-                  <i />
-                  <i />
-                  <i />
-                </div>
-              }
-            >
-              <HeroScene motion={motion} layer={layer} />
-            </Suspense>
-          </div>
-          <div className="hero-content">
-            <p className="hero-kicker">
-              <span className="status-dot" /> SOFTWARE ENGINEER & TECHNICAL LEAD
-            </p>
-            <h1 id="hero-title">
-              <span>Cyril</span>
-              <span>
-                Emmanuel<span className="name-period">.</span>
-              </span>
-            </h1>
-            <div className="hero-intro">
-              <p>
-                I engineer the systems
-                <br />
-                behind the experience.
-              </p>
-              <a
-                className="hero-cta"
-                href="#work"
-                aria-label="Explore selected work"
-              >
-                <span>Explore the work</span>
-                <Arrow diagonal />
-              </a>
-            </div>
-          </div>
-          <div className="hero-aside">
-            <span className="eyebrow">FOUNDER, EMINIFY</span>
-            <p>
-              Payments. Identity.
-              <br />
-              Products that connect it all.
-            </p>
-          </div>
-          <div className="scene-caption">
-            <span className="scene-caption-line" />
-            <span>
-              {layer < 0
-                ? "A SYSTEM, IN THREE LAYERS"
-                : layers[layer].description}
-            </span>
-          </div>
-          <div className="hero-bottom">
-            <a href="#intro" className="scroll-link">
-              SCROLL TO EXPLORE <span>↓</span>
-            </a>
-            <div
-              className="layer-controls"
-              aria-label="Explore the 3D system layers"
-            >
-              {layers.map((item, i) => (
-                <button
-                  key={item.name}
-                  aria-pressed={layer === i}
-                  onClick={() => setLayer(layer === i ? -1 : i)}
-                >
-                  <small>0{i + 1}</small>
-                  {item.name}
-                </button>
-              ))}
-            </div>
-            <button
-              className="motion-control"
-              onClick={() => setMotion(!motion)}
-              aria-pressed={!motion}
-            >
-              {motion ? "Ⅱ Pause motion" : "▶ Resume motion"}
-            </button>
-          </div>
-        </section>
-        <section id="intro" className="intro-section section-pad">
-          <div className="section-label">
-            <span>01 / THE PRACTICE</span>
-            <Asterisk />
-          </div>
-          <div className="intro-copy" data-reveal>
-            <h2>
-              From the first interaction
-              <br />
-              to the <em>last mile.</em>
-            </h2>
-            <div className="intro-detail">
-              <p>
-                I work across the interface, the service and the operational
-                reality behind them. Payment flows, identity, AI integrations
-                and the tools people use to run a business.
-              </p>
-              <p>
-                My work combines hands-on engineering with technical leadership
-                and a founder’s understanding of what needs to happen next.
-              </p>
-            </div>
-          </div>
-          <div className="practice-strip">
-            <span>PAYMENTS & INTEGRATIONS</span>
-            <i>↗</i>
-            <span>IDENTITY & PLATFORMS</span>
-            <i>↗</i>
-            <span>AI & DEVELOPER TOOLS</span>
-          </div>
-        </section>
+        <StudioHero motion={motion} onOpen={openProject} />
         <section id="work" className="work-section section-pad">
-          <div className="work-heading">
-            <div>
-              <p className="eyebrow">02 / SELECTED ENGINEERING</p>
-              <h2>
-                Built with
-                <br />
-                <em>intention.</em>
-              </h2>
-            </div>
+          <div className="section-label">
+            <span>02 / SELECTED WORK</span>
+            <span>2023 — 2026</span>
+          </div>
+          <div className="section-heading" data-reveal>
+            <h2 className="display-heading">
+              A few things
+              <br />
+              <span>I’ve put into the world.</span>
+            </h2>
             <p>
-              A closer look at the products,
-              <br />
-              the decisions and the work behind them.
-              <br />
-              <span>Selected work / 2023—2026</span>
+              Products, platforms and the decisions that connect them. A closer
+              look at the work.
             </p>
           </div>
-          <div className="work-grid">
-            {selected.map((p, i) => (
-              <WorkCard
-                key={p.id}
-                project={p}
-                index={i}
-                onOpen={() => openProject(p)}
-                motion={motion}
-              />
-            ))}
-          </div>
+          <WorkShowcase onOpen={openProject} />
           <div className="archive-toggle">
             <div>
-              <span className="eyebrow">THE WIDER BODY OF WORK</span>
-              <p>More products. More contexts.</p>
+              <span className="micro">THE WIDER BODY OF WORK</span>
+              <h3>There’s more to the story.</h3>
             </div>
             <button
               className="pill"
@@ -601,7 +582,7 @@ function App() {
             >
               {archive
                 ? "Close project index"
-                : `Explore all ${projects.length} projects`}{" "}
+                : `Explore all ${projects.length} projects`}
               <span>{archive ? "−" : "+"}</span>
             </button>
           </div>
@@ -645,7 +626,7 @@ function App() {
                   <Arrow diagonal />
                 </button>
               ))}
-              {filtered.length === 0 ? (
+              {!filtered.length ? (
                 <p className="empty-state">
                   No matching projects. Try a different name or domain.
                 </p>
@@ -653,110 +634,37 @@ function App() {
             </div>
           ) : null}
         </section>
-        <section id="approach" className="approach-section section-pad">
-          <div className="section-label">
-            <span>03 / ENGINEERING, UP CLOSE</span>
-            <Asterisk />
-          </div>
-          <div className="approach-heading" data-reveal>
-            <h2>
-              The interesting part
-              <br />
-              is what happens <em>next.</em>
-            </h2>
-            <p>
-              A beautiful interface starts the conversation.
-              <br />
-              The system has to finish it.
-            </p>
-          </div>
-          <div className="principles">
-            {[
-              [
-                "01",
-                "A click becomes a contract.",
-                "A clear interface hands intent to an API. Permissions, validation and predictable responses make that handoff dependable.",
-                "INTERFACE → API",
-              ],
-              [
-                "02",
-                "Failures are part of the flow.",
-                "Requests repeat. Providers time out. The design needs a way to recover without duplicating actions or losing their history.",
-                "API → DATA",
-              ],
-              [
-                "03",
-                "Someone has to operate it.",
-                "Approvals, observability, reversals and handover belong in the product. They are how a team stays in control after release.",
-                "DATA → OPERATIONS",
-              ],
-            ].map(([n, title, body, flow]) => (
-              <article key={n} data-reveal>
-                <span className="principle-number">{n}</span>
-                <h3>{title}</h3>
-                <p>{body}</p>
-                <code>{flow}</code>
-              </article>
-            ))}
-          </div>
-          <div className="lab-invitation">
-            <div>
-              <span className="eyebrow">TRY AN ENGINEERING DECISION</span>
-              <h3>
-                One payment.
-                <br />
-                Even when the request repeats.
-              </h3>
-              <p>
-                An interactive, synthetic model of idempotency: a request key
-                that keeps a retry from becoming a second payment.
-              </p>
-            </div>
-            <button
-              className="round-link"
-              onClick={() => setLab(!lab)}
-              aria-expanded={lab}
-              aria-controls="engineering-demo"
-            >
-              <span>{lab ? "Close demo" : "Try the demo"}</span>
-              {lab ? <span>−</span> : <Arrow diagonal />}
-            </button>
-          </div>
-          {lab ? (
-            <div id="engineering-demo" className="engineering-demo">
-              <Suspense fallback={<p>Loading the demonstration…</p>}>
-                <PaymentBoundary />
-              </Suspense>
-            </div>
-          ) : null}
-        </section>
+        <Engineering />
         <section id="about" className="about-section section-pad">
           <div className="section-label">
-            <span>04 / THE PERSON BEHIND THE WORK</span>
-            <Asterisk />
+            <span>04 / MORE THAN THE CODE</span>
+            <SystemMark />
           </div>
+          <h2 className="display-heading" data-reveal>
+            A builder’s curiosity.
+            <br />
+            <span>A founder’s perspective.</span>
+          </h2>
           <div className="about-grid">
-            <div className="about-portrait" data-reveal>
+            <figure className="about-portrait" data-reveal>
               <img
                 src="/identity/cyril-emmanuel.png"
                 width="460"
                 height="460"
-                alt="Cyril Emmanuel"
+                alt="Cyril Emmanuel, wearing glasses and looking to the left"
                 loading="lazy"
               />
-              <span>
-                CYRIL EMMANUEL
-                <br />
-                LAGOS, NIGERIA
-              </span>
-            </div>
+              <figcaption>
+                CYRIL EMMANUEL <span>LAGOS, NIGERIA</span>
+              </figcaption>
+              <i aria-hidden="true">✳</i>
+            </figure>
             <div className="about-copy" data-reveal>
-              <p className="eyebrow">ENGINEER. FOUNDER. TECHNICAL LEADER.</p>
-              <h2>
-                Curious about the detail.
+              <p className="about-lead">
+                I stay close to the code.
                 <br />
-                <em>Responsible for the whole.</em>
-              </h2>
+                And responsible for the whole.
+              </p>
               <p>
                 My career has taken me from institutional ICT and business
                 operations into full-stack engineering, technical leadership and
@@ -765,53 +673,39 @@ function App() {
               <p>
                 That path shapes how I build. I care about the person using the
                 product, the team maintaining it and the business depending on
-                it. I stay close to the code while helping teams make
-                architecture and delivery decisions.
-              </p>
-              <p>
-                Today, that includes AddressDox and PlotDox, early-stage
-                technical leadership at RewaPay, and product and client work
-                through Eminify.
+                it. Good engineering connects all three.
               </p>
               <div className="about-links">
                 <a className="text-link" href={cv} download>
-                  Download résumé <Arrow />
+                  Download résumé <span>↓</span>
                 </a>
-                <a
-                  className="text-link"
-                  href={links.linkedin}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  Professional history <Arrow diagonal />
+                <a className="text-link" href={links.linkedin}>
+                  The full story <Arrow diagonal />
                 </a>
               </div>
             </div>
           </div>
           <div className="experience-line">
-            <div>
-              <span>2026—PRESENT</span>
-              <strong>AddressDox</strong>
-              <p>Senior Software Developer</p>
-            </div>
-            <div>
-              <span>2025—PRESENT</span>
-              <strong>RewaPay</strong>
-              <p>Chief Technology Officer · Contract</p>
-            </div>
-            <div>
-              <span>2019—PRESENT</span>
-              <strong>Eminify</strong>
-              <p>Founder & Lead Engineer</p>
-            </div>
-            <div>
-              <span>2021—2024</span>
-              <strong>Qubators</strong>
-              <p>Head of Technical</p>
-            </div>
+            {[
+              ["2026—PRESENT", "AddressDox", "Senior Software Developer"],
+              [
+                "2025—PRESENT",
+                "RewaPay",
+                "Chief Technology Officer · Contract",
+              ],
+              ["2019—PRESENT", "Eminify", "Founder & Lead Engineer"],
+              ["2021—2024", "Qubators", "Head of Technical"],
+            ].map(([date, name, role]) => (
+              <div key={name}>
+                <span>{date}</span>
+                <strong>{name}</strong>
+                <p>{role}</p>
+                <Arrow diagonal />
+              </div>
+            ))}
           </div>
           <div className="stack-row">
-            <span>THE WORKING STACK</span>
+            <span className="micro">TOOLS OF THE TRADE</span>
             <p>
               TypeScript / React / Next.js / Node.js / NestJS / Laravel / Python
               / Flutter / PostgreSQL / Docker
@@ -819,50 +713,52 @@ function App() {
           </div>
         </section>
         <section id="contact" className="contact-section section-pad">
-          <div className="contact-top">
-            <span className="eyebrow">05 / WHAT’S NEXT</span>
+          <div className="section-label">
+            <span>05 / THE NEXT CHAPTER</span>
+            <span>LAGOS ↗ EVERYWHERE</span>
+          </div>
+          <div className="contact-intro">
             <p>
               Engineering opportunities. Product partnerships.
-              <br />A useful conversation about something worth building.
+              <br />A conversation about something worth building.
             </p>
+            <SystemMark />
           </div>
           <a className="contact-title" href={links.email}>
-            Let’s build
+            What are you
             <br />
-            <em>what’s next.</em>
+            <span>working on?</span>
             <Arrow diagonal />
           </a>
           <div className="contact-bottom">
-            <a href={links.email}>emmacyril@gmail.com</a>
-            <button
-              onClick={copyEmail}
-              className="copy-email"
-              aria-label="Copy email address"
-            >
-              {copied ? "Copied ✓" : "Copy email ↗"}
-            </button>
-            <div>
-              <a href={links.github} target="_blank" rel="noreferrer">
-                GitHub ↗
-              </a>
-              <a href={links.linkedin} target="_blank" rel="noreferrer">
-                LinkedIn ↗
-              </a>
-              <a href={links.studio} target="_blank" rel="noreferrer">
-                Eminify ↗
-              </a>
-            </div>
+            <a href={links.email}>
+              emmacyril@gmail.com <Arrow diagonal />
+            </a>
+            <a className="text-link" href={cv} download>
+              Résumé ↓
+            </a>
           </div>
-          <span className="sr-only" role="status">
-            {copied ? "Email address copied" : ""}
-          </span>
         </section>
       </main>
-      <footer>
-        <span>© {new Date().getFullYear()} Cyril Emmanuel</span>
-        <span>Engineering the complete experience.</span>
-        <a href="#home">Back to top ↑</a>
+      <footer className="site-footer">
+        <a className="wordmark" href="#home">
+          Cyril<span>Emmanuel</span>
+          <i />
+        </a>
+        <div>
+          <a href={links.github}>GitHub ↗</a>
+          <a href={links.linkedin}>LinkedIn ↗</a>
+          <a href={links.studio}>Eminify ↗</a>
+        </div>
+        <span>© {new Date().getFullYear()} CYRIL EMMANUEL</span>
       </footer>
+      <button
+        className="motion-control"
+        onClick={() => setMotion(!motion)}
+        aria-pressed={!motion}
+      >
+        {motion ? "Ⅱ Pause motion" : "▶ Resume motion"}
+      </button>
       {menu ? <Menu close={() => setMenu(false)} /> : null}
       {activeProject ? (
         <CaseStudy project={activeProject} onClose={closeProject} />
@@ -870,7 +766,6 @@ function App() {
     </>
   );
 }
-
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <App />
