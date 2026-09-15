@@ -1,18 +1,24 @@
 import { useState } from "react";
 
+const displayEmail = "emmacyril [at] gmail [dot] com";
+const resolveEmail = () => displayEmail.replace(" [at] ", "@").replace(" [dot] ", ".");
+
 export default function ContactSection() {
   const [copied, setCopied] = useState(false);
-  const email = "emmacyril@gmail.com";
   const cvPath = "/downloads/Cyril_Emmanuel_Resume.pdf";
+
+  const openEmail = () => {
+    window.location.href = `mailto:${resolveEmail()}`;
+  };
 
   const copyEmail = async () => {
     try {
-      await navigator.clipboard.writeText(email);
+      await navigator.clipboard.writeText(resolveEmail());
       setCopied(true);
       setTimeout(() => setCopied(false), 2500);
     } catch {
       // Fallback if clipboard API unavailable
-      window.location.href = `mailto:${email}`;
+      openEmail();
     }
   };
 
@@ -37,14 +43,15 @@ export default function ContactSection() {
       <div className="contact-card" data-reveal>
         <div className="contact-main">
           <span className="contact-kicker">DIRECT CHANNEL:</span>
-          <a
-            href={`mailto:${email}`}
+          <button
+            type="button"
+            onClick={openEmail}
             className="contact-email-link"
-            aria-label={`Send email to ${email}`}
+            aria-label="Email Cyril Emmanuel"
           >
-            {email}
-            <span className="email-arrow">↗</span>
-          </a>
+            <span>{displayEmail}</span>
+            <span className="email-arrow" aria-hidden="true">↗</span>
+          </button>
 
           <div className="contact-action-row">
             <button

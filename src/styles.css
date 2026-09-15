@@ -1943,15 +1943,22 @@ body {
 }
 
 .contact-email-link {
-  font-size: clamp(28px, 4vw, 52px);
+  background: none;
+  border: 0;
+  padding: 0;
+  max-width: 100%;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: clamp(24px, 3vw, 40px);
   font-weight: 800;
   letter-spacing: -0.03em;
   color: var(--text-primary);
   text-decoration: none;
+  text-align: left;
   display: inline-flex;
   align-items: center;
   gap: 12px;
-  word-break: break-all;
+  overflow-wrap: anywhere;
   transition: color var(--transition-fast);
 }
 
