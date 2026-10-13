@@ -16,12 +16,12 @@ import CaseStudyModal from "./CaseStudyModal";
 
 // The 6 flagship architectures requested in the brief
 const flagshipIds = [
+  "eminly",
   "rewapay",
   "addressdox",
   "emiwarp",
   "koletmoni",
   "ratelline",
-  "qubsurf",
 ];
 
 const flagshipProjects = flagshipIds

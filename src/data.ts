@@ -31,6 +31,146 @@ export type Project = {
 
 export const projects: Project[] = [
   {
+    id: "eminly",
+    name: "Eminly",
+    eyebrow: "White-label money, identity & AI",
+    category: "Platforms",
+    summary:
+      "A white-label platform joining onboarding, wallets, payments and an AI assistant that acts only after the customer approves.",
+    stack: ["Flutter", "NestJS", "PostgreSQL", "Gemini"],
+    status: "Pilot",
+    year: "2026",
+    color: "blue",
+    featured: true,
+    challenge:
+      "Customers want to ask for a payment in their own words, but money must still move only on explicit, verifiable approval — and the same core has to adapt to banks, lenders, hospitals and enterprises.",
+    contribution:
+      "Product, design and engineering across the Flutter client, NestJS API, payment-provider adapters, operations console and assistant.",
+    decisions: [
+      "Let the assistant prepare drafts; require PIN approval to execute.",
+      "Post every monetary write to an exact double-entry journal with reservations.",
+      "Recover unknown provider outcomes by lookup, never blind resubmission.",
+      "Require two different staff members to approve refunds.",
+    ],
+    boundary:
+      "Running as a sandbox pilot. Live money movement depends on licensed banking and payment partners and a monitored pilot in each market.",
+    flow: ["Ask or tap", "Prepare draft", "Approve with PIN", "Post & reconcile"],
+    image: "/projects/eminly.jpg",
+    imageCaption:
+      "Eminly web welcome screen with demonstration content, from the September 2026 design review.",
+    site: "https://eminly-web.vercel.app",
+  },
+  {
+    id: "orrabot",
+    name: "OrraBot",
+    eyebrow: "AI agent workspace",
+    category: "AI & automation",
+    summary:
+      "A desktop chat app where every contact is an AI agent, with a separate, walled-off team for each company.",
+    stack: ["Electron", "React", "TypeScript", "Agent providers"],
+    status: "Pre-launch beta",
+    year: "2026",
+    color: "orange",
+    challenge:
+      "Founders and agencies running several companies need AI agents that keep each company's data, logins and budgets apart.",
+    contribution:
+      "The organisations layer, white-label branding, usage and billing exports, audit log, packaging, account service and product websites, built on the open-source OpenMausBot foundation.",
+    decisions: [
+      "Isolate bots, data and credentials per organisation.",
+      "Keep the upstream OpenMausBot foundation credited and separable.",
+      "Let users bring their own AI provider.",
+      "Ship installers for macOS, Windows and Linux.",
+    ],
+    boundary:
+      "Built on OpenMausBot (Apache-2.0), credited as the foundation. Installers are in beta; paid plans are not yet switched on.",
+    flow: ["Brief a bot", "Agent works", "Review", "Approve"],
+    image: "/projects/orrabot.jpg",
+    imageCaption: "Public OrraBot website. Captured 13 October 2026.",
+    site: "https://orrabot-site.vercel.app",
+  },
+  {
+    id: "rora",
+    name: "RORA · Rhapsody Ask",
+    eyebrow: "Grounded multilingual AI",
+    category: "AI & automation",
+    summary:
+      "Answers questions in any language using only Rhapsody of Realities devotionals, cited by date and edition.",
+    stack: ["Next.js", "PostgreSQL", "pgvector", "Gemini Live"],
+    status: "Live",
+    year: "2026",
+    color: "violet",
+    challenge:
+      "A publisher needs answers that never stray from its published texts and that readers can check for themselves.",
+    contribution:
+      "Retrieval pipeline, citation format, chat and live-voice interfaces, embeddable widget and API.",
+    decisions: [
+      "Answer only from retrieved source passages.",
+      "Cite the edition and date behind every answer.",
+      "Offer live voice alongside chat.",
+      "Serve the same answers through a widget and an API.",
+    ],
+    boundary:
+      "Built with Qubators for Rhapsody of Realities, which owns the content and the product.",
+    flow: ["Question", "Retrieve passages", "Grounded answer", "Cite source"],
+    image: "/projects/rora.jpg",
+    imageCaption: "Public Rhapsody Ask interface. Captured 13 October 2026.",
+    site: "https://rhapsodyask.com",
+  },
+  {
+    id: "submitnote",
+    name: "SubmitNote",
+    eyebrow: "Medical-certificate verification",
+    category: "Platforms",
+    summary:
+      "Lets South African employers verify medical certificates with the issuing practice, designed around POPIA and HPCSA requirements.",
+    stack: ["React", "TypeScript", "Supabase"],
+    status: "Live",
+    year: "2026",
+    color: "mint",
+    challenge:
+      "Employers need to confirm a medical certificate is genuine without seeing a patient's private health information.",
+    contribution:
+      "Web platform, doctor and employer journeys, and the verification workflow.",
+    decisions: [
+      "Verify the document, not the diagnosis.",
+      "Keep issuing and checking as separate roles.",
+      "Design data handling around POPIA.",
+    ],
+    boundary:
+      "Implementation for a South African client; regulatory standing rests with the operator.",
+    flow: ["Doctor issues", "Code on letter", "Employer checks", "Verified"],
+    image: "/projects/submitnote.jpg",
+    imageCaption: "Public SubmitNote website. Captured 13 October 2026.",
+    site: "https://www.submitnote.com",
+  },
+  {
+    id: "rormap",
+    name: "ReachOut World Map",
+    eyebrow: "3D globe & AI voice guide",
+    category: "Web & mobile",
+    summary:
+      "A 3D globe of a worldwide outreach campaign, from nations down to streets, with pledges and an AI voice guide.",
+    stack: ["Next.js", "three.js", "MapLibre", "Capacitor"],
+    status: "Live",
+    year: "2026",
+    color: "lime",
+    challenge:
+      "A global campaign needs to show its reach in a way people can explore, and turn that interest into sponsorship.",
+    contribution:
+      "Globe and map experience, pledge flows with Paystack, the AI voice guide, and Android/iOS packaging.",
+    decisions: [
+      "Drill from globe to street on one continuous map.",
+      "Keep pledging one step away from the map.",
+      "Package the web app for Android and iOS.",
+    ],
+    boundary:
+      "Built with Qubators for Rhapsody of Realities, which owns the campaign and content. Store listings are pending publication.",
+    flow: ["Explore globe", "Drill down", "Pledge", "Ask the guide"],
+    image: "/projects/rormap.jpg",
+    imageCaption: "ReachOut World store feature graphic, October 2026.",
+    site: "https://www.rormap.com",
+  },
+  {
     id: "addressdox",
     name: "AddressDox / PlotDox",
     eyebrow: "Identity, documents & land workflows",
